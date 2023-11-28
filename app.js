@@ -3,37 +3,34 @@ const input = document.getElementById("search-bar");
 const searchButton = document.getElementById("search-button");
 const form = document.querySelector("form");
 
+function handleSubmit(data, e) {
+  console.log("submit");
+  e.preventDefault();
+
+  const imgSrc = getImage(data);
+  img.src = imgSrc;
+}
+
 async function fetchDataAndSetImage() {
   try {
     const response = await fetch("https://ghibliapi.vercel.app/films");
     const data = await response.json();
-    console.log(data);
 
-    form.addEventListener("submit", (e) => {
-      e.preventDefault();
-      const formImage = getImage(data);
-      img.src = formImage;
-    });
+    form.addEventListener("submit", (e) => handleSubmit(data, e));
 
-    searchButton.addEventListener("click", (e) => {
-      e.preventDefault();
-
-      const imageUrl = getImage(data);
-      img.src = imageUrl;
-    });
+    searchButton.addEventListener("click", (e) => handleSubmit(data, e));
   } catch (error) {
     console.error("Error fetching data:", error);
   }
 }
 
 function getImage(data) {
-  const searchInput = input.value.toLowerCase();
+  const searchInput = input.value.toLowerCase().replace(/'/g, "");
 
-  for (let i = 0; i < data.length; i++) {
-    const filmTitle = data[i].title.toLowerCase();
-    if (filmTitle.includes(searchInput)) {
-      return data[i].image;
-    }
+  for (movie of data) {
+    const filmTitle = movie.title.toLowerCase().replace(/'/g, "");
+
+    if (filmTitle.includes(searchInput)) return movie.image;
   }
 
   return "Not Found";
