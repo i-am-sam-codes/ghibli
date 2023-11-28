@@ -26,6 +26,12 @@ main {
   justify-content: center;
   flex-direction: column;
   margin-top: 6rem;
+
+  img {
+    max-width: 1280px;
+    max-height: 720px;
+    object-fit: contain;
+  }
 }
 
 #search-container {
@@ -55,9 +61,15 @@ main {
   margin-left: 5px;
 }
 
-#display-result {
+.result-display {
+  margin-top: 3rem;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
+  gap: 1rem;
+
+  span {
+    visibility: hidden;
+  }
 }
