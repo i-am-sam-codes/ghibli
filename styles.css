@@ -50,7 +50,6 @@ main {
   border-radius: 48px;
   border: 2.5px solid rgb(11, 11, 11);
   width: fit-content;
-  max-width: 100%;
   padding-right: 40px;
   padding-left: 10px;
 }
